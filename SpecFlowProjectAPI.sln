@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowProjectAPI", "SpecFlowProjectAPI\SpecFlowProjectAPI.csproj", "{E5DB9066-5D2D-4910-A873-4B9969047F37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoMock", "ProyectoMock\ProyectoMock.csproj", "{707EE38B-877D-4BE6-9355-125CFD001BDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5DB9066-5D2D-4910-A873-4B9969047F37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5DB9066-5D2D-4910-A873-4B9969047F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5DB9066-5D2D-4910-A873-4B9969047F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5DB9066-5D2D-4910-A873-4B9969047F37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{707EE38B-877D-4BE6-9355-125CFD001BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{707EE38B-877D-4BE6-9355-125CFD001BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{707EE38B-877D-4BE6-9355-125CFD001BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{707EE38B-877D-4BE6-9355-125CFD001BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87D4DC5F-B8B7-4BA8-A9E8-41651965F2F9}
+	EndGlobalSection
+EndGlobal

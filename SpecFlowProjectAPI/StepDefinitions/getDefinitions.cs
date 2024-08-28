@@ -5,6 +5,7 @@ using System.Security.Policy;
 using System.Text;
 using TechTalk.SpecFlow.Infrastructure;
 using static SpecFlowProjectAPI.Support.GetData;
+using static SpecFlowProjectAPI.Support.GetBookingData;
 
 
 namespace SpecFlowProjectAPI.StepDefinitions
@@ -17,14 +18,33 @@ namespace SpecFlowProjectAPI.StepDefinitions
         string responseBody;
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
         GetData desdata;
+        GetBookingData desdataBooking;
         public getDefinitions(ISpecFlowOutputHelper _specFlowOutputHelper)
         {
             httpClient = new HttpClient();
             this._specFlowOutputHelper = _specFlowOutputHelper;
         }
 
-        [Given(@"the user sends a get request with url as ""([^""]*)""")]
+        [Given(@"thee user sends a get request with url as ""([^""]*)""")]
         public async Task GivenTheUserSendsAGetRequestWithUrlAs(string url)
+        {
+
+            // Configurar el encabezado Content-Type
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            responseBody = await response.Content.ReadAsStringAsync();
+            _specFlowOutputHelper.WriteLine(responseBody);
+
+            desdataBooking = JsonConvert.DeserializeObject<GetBookingData>(responseBody);
+            _specFlowOutputHelper.WriteLine("After deserialization value is: " + desdataBooking.firstname.ToString());
+
+        }
+
+        [Given(@"the user sends a get request with url as ""([^""]*)""")]
+        public async Task GivenTheUserSendsAGetRequestWithUrlAs2(string url)
         {
             response = await httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
@@ -60,6 +80,23 @@ namespace SpecFlowProjectAPI.StepDefinitions
 
 
 
+        [Then(@"userr should get a succes response")]
+        public void ThenUserShouldGetASuccesResponse2()
+        {
+            GetBookingData getData = new GetBookingData()
+            {
+                        firstname= "Mary",
+                        lastname= "Smith",
+                        totalprice= 351,
+                        depositpaid= false,
+            };
+
+            Assert.True(response.IsSuccessStatusCode);
+            Assert.AreEqual(desdataBooking.firstname, getData.firstname);
+            Assert.AreEqual(desdataBooking.lastname, getData.lastname);
+            Assert.AreEqual(desdataBooking.totalprice, getData.totalprice);
+            Assert.AreEqual(desdataBooking.depositpaid, getData.depositpaid);
+        }
 
 
     }

@@ -20,22 +20,22 @@ namespace SpecFlowProjectAPI.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("apiTest")]
-    public partial class ApiTestFeature
+    [NUnit.Framework.DescriptionAttribute("Enviar y recibir mensajes en RabbitMQ")]
+    public partial class EnviarYRecibirMensajesEnRabbitMQFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "apiTest.feature"
+#line 1 "demoRabbitMQ.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "apiTest", null, ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Enviar y recibir mensajes en RabbitMQ", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,16 +74,14 @@ namespace SpecFlowProjectAPI.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("POST request test")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
-        public void POSTRequestTest()
+        [NUnit.Framework.DescriptionAttribute("Verificar que el mensaje Json se envía correctamente")]
+        public void VerificarQueElMensajeJsonSeEnviaCorrectamente()
         {
-            string[] tagsOfScenario = new string[] {
-                    "mytag"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("POST request test", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 4
-this.ScenarioInitialize(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verificar que el mensaje Json se envía correctamente", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 3
+ this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -92,25 +90,28 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 4
+    testRunner.Given("un contenedor RabbitMQ está en funcionamiento", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 5
- testRunner.Given("the user sends a post request with url as \"https://restful-booker.herokuapp.com/a" +
-                        "uth\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.When("envío un mensaje \"{\"type\": \"simple\", \"content\": \"Hello, World\"}\" a la cola", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 6
- testRunner.Then("user should get a succes response with 200s code", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("el mensaje \"{\"type\": \"simple\", \"content\": \"Hello, World\"}\" debería ser recibido c" +
+                        "orrectamente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("GET request test")]
-        public void GETRequestTest()
+        [NUnit.Framework.DescriptionAttribute("Verificar que el mensaje Json + objeto se envía correctamente")]
+        public void VerificarQueElMensajeJsonObjetoSeEnviaCorrectamente()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("GET request test", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 9
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verificar que el mensaje Json + objeto se envía correctamente", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -120,23 +121,28 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 9
+    testRunner.Given("un contenedor RabbitMQ está en funcionamiento", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 10
- testRunner.Given("the user sends a get request with url as \"https://reqres.in/api/users/2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.When("envío un mensaje \"{\"type\": \"complex\", \"content\": {\"text\": \"Hello\", \"number\": 123}" +
+                        "}\" a la cola", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 11
- testRunner.Then("user should get a succes response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("el mensaje \"{\"type\": \"complex\", \"content\": {\"text\": \"Hello\", \"number\": 123}}\" deb" +
+                        "ería ser recibido correctamente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("GET request that fail")]
-        public void GETRequestThatFail()
+        [NUnit.Framework.DescriptionAttribute("Verificar que el mensaje Json + Array se envía correctamente")]
+        public void VerificarQueElMensajeJsonArraySeEnviaCorrectamente()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("GET request that fail", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verificar que el mensaje Json + Array se envía correctamente", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -148,11 +154,15 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 14
- testRunner.Given("thee user sends a get request with url as \"https://restful-booker.herokuapp.com/b" +
-                        "ooking/2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("un contenedor RabbitMQ está en funcionamiento", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 15
- testRunner.Then("userr should get a succes response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.When("envío un mensaje \"{\"type\": \"list\", \"content\": [\"item1\", \"item2\", \"item3\"]}\" a la " +
+                        "cola", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 16
+    testRunner.Then("el mensaje \"{\"type\": \"list\", \"content\": [\"item1\", \"item2\", \"item3\"]}\" debería ser" +
+                        " recibido correctamente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

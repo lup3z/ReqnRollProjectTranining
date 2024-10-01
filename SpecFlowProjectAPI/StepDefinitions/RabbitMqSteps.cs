@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using RabbitMQ.Client;
 using SpecFlowProjectAPI.Support;
+using SpecFlowProjectAPI.Support.RabbitMQ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,45 +15,23 @@ namespace SpecFlowProjectAPI.StepDefinitions
     [Binding]
     public class RabbitMqSteps
     {
-        private RabbitMqContainer _rabbitMqContainer;
-        private IConnection _connection;
-        private IModel _channel;
+        private RabbitMqContainerManager _rabbitMqManager;
         private RabbitMqProducer _producer;
         private RabbitMqConsumer _consumer;
 
         [Given(@"un contenedor RabbitMQ está en funcionamiento")]
         public void GivenUnContenedorRabbitMqEstaEnFuncionamiento()
         {
-            // Iniciar un contenedor RabbitMQ utilizando TestContainers
-            _rabbitMqContainer = new RabbitMqBuilder()
-                .WithImage("rabbitmq:3.13-management")
-                .WithPortBinding(5672, 5672)  // Mapeo del puerto RabbitMQ
-                .WithUsername("testuser")
-                .WithPassword("testpassword")
-                .Build();
+            // Inicializar y arrancar el contenedor RabbitMQ
+            _rabbitMqManager = new RabbitMqContainerManager();
+            _rabbitMqManager.StartContainer();
 
-            // Iniciar el contenedor RabbitMQ
-            _rabbitMqContainer.StartAsync().Wait();
-
-            // Conectar a RabbitMQ en localhost, usando el puerto predeterminado 5672
-            var factory = new ConnectionFactory()
-            {
-                HostName = "localhost",  // Se conecta a RabbitMQ en el host
-                Port = 5672, // Puerto predeterminado de RabbitMQ
-                UserName = "testuser",
-                Password = "testpassword"
-            };
-
-            // Crear la conexión y el canal de comunicación
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
-
-            // Declarar la cola
-            _channel.QueueDeclare(queue: "hello", durable: false, exclusive: false, autoDelete: false, arguments: null);
+            // Inicializar el productor y el consumidor utilizando el canal proporcionado por RabbitMqManager
+            var channel = _rabbitMqManager.GetChannel();
 
             // Inicializar el productor y el consumidor
-            _producer = new RabbitMqProducer(_channel);
-            _consumer = new RabbitMqConsumer(_channel);
+            _producer = new RabbitMqProducer(channel);
+            _consumer = new RabbitMqConsumer(channel);
 
         }
 
@@ -66,7 +45,6 @@ namespace SpecFlowProjectAPI.StepDefinitions
         public void ThenElMensajeDeberiaSerRecibidoCorrectamente(string expectedMessage)
         {
             var receivedMessage = _consumer.ConsumeMessage("hello");
-
             var receivedMessageObject = JsonConvert.DeserializeObject<SimpleMessage>(receivedMessage);
             var receivedMessageObjectFromTest = JsonConvert.DeserializeObject<SimpleMessage>(expectedMessage);
 
@@ -111,10 +89,8 @@ namespace SpecFlowProjectAPI.StepDefinitions
         [AfterScenario]
         public void TearDown()
         {
-            // Cerrar las conexiones y detener el contenedor
-            _channel?.Close();
-            _connection?.Close();
-            _rabbitMqContainer?.StopAsync().Wait();
+            // Detener el contenedor y cerrar conexiones
+            _rabbitMqManager.StopContainer();
         }
     }
 

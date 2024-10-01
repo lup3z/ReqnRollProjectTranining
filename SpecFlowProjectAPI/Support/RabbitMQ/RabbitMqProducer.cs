@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpecFlowProjectAPI.Support
+namespace SpecFlowProjectAPI.Support.RabbitMQ
 {
     public class RabbitMqProducer
     {

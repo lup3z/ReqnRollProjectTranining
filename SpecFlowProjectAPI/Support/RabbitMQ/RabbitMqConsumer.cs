@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpecFlowProjectAPI.Support
+namespace SpecFlowProjectAPI.Support.RabbitMQ
 {
     public class RabbitMqConsumer
     {
@@ -30,7 +30,7 @@ namespace SpecFlowProjectAPI.Support
             };
 
             _channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
-            System.Threading.Thread.Sleep(1000); // Espera para recibir el mensaje
+            Thread.Sleep(1000); // Espera para recibir el mensaje
             return _receivedMessage;
 
         }

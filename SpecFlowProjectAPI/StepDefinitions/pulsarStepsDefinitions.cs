@@ -1,59 +1,47 @@
 ﻿using Newtonsoft.Json;
 using NUnit.Framework;
-using RabbitMQ.Client;
-using SpecFlowProjectAPI.Support;
-using SpecFlowProjectAPI.Support.RabbitMQ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TechTalk.SpecFlow;
-using Testcontainers.RabbitMq;
+using SpecFlowProjectAPI.Support.Pulsar;
+using SpecFlowProjectAPI.Support;
 
 namespace SpecFlowProjectAPI.StepDefinitions
 {
     [Binding]
-    public class RabbitMqSteps
+    public class pulsarStepsDefinitions
     {
-
         private readonly ScenarioContext _scenarioContext;
-        private RabbitMqContainerManager _rabbitMqManager;
-        private RabbitMqProducer _producer;
-        private RabbitMqConsumer _consumer;
+        ConsumerAndProducer _PulsarContA = new ConsumerAndProducer();
+        private PulsarContainerManager _containerManager;
 
         // Inyectar AfterHooks a través del constructor
-        public RabbitMqSteps(ScenarioContext scenarioContext)
+        public pulsarStepsDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }
 
-        [Given(@"un contenedor RabbitMQ está en funcionamiento")]
-        public void GivenUnContenedorRabbitMqEstaEnFuncionamiento()
+        [Given(@"un contenedor Pulsar está en funcionamiento")]
+        public async Task GivenUnContenedorRabbitMqEstaEnFuncionamiento()
         {
-            // Inicializar y arrancar el contenedor RabbitMQ
-            _rabbitMqManager = new RabbitMqContainerManager();
-            _rabbitMqManager.StartContainer();
-
-            // Inicializar el productor y el consumidor utilizando el canal proporcionado por RabbitMqManager
-            var channel = _rabbitMqManager.GetChannel();
-
-            // Inicializar el productor y el consumidor
-            _producer = new RabbitMqProducer(channel);
-            _consumer = new RabbitMqConsumer(channel);
+            await _PulsarContA.StartPulsarCon();
+            await _PulsarContA.CreateProdCons();
 
         }
 
-        [When(@"envío un mensaje ""(.*)"" a la cola")]
-        public void WhenEnvioUnMensajeALaCola(string message)
+        [When(@"envío un mensaje al producer ""(.*)"" a la cola")]
+        public async Task WhenEnvioUnMensajeALaCola(string message)
         {
-            _producer.SendMessage("hello", message);
+            await _PulsarContA.SendMessage(message);
         }
 
-        [Then(@"el mensaje ""(.*)"" debería ser recibido correctamente")]
-        public void ThenElMensajeDeberiaSerRecibidoCorrectamente(string expectedMessage)
+        [Then(@"el mensaje recibido por el consumer ""(.*)"" debería ser recibido correctamente")]
+        public async Task ThenElMensajeDeberiaSerRecibidoCorrectamente(string expectedMessage)
         {
-            var receivedMessage = _consumer.ConsumeMessage("hello");
+            var receivedMessage = await _PulsarContA.ReceiveMessage();
+
             var receivedMessageObject = JsonConvert.DeserializeObject<SimpleMessage>(receivedMessage);
             var receivedMessageObjectFromTest = JsonConvert.DeserializeObject<SimpleMessage>(expectedMessage);
 
@@ -93,14 +81,19 @@ namespace SpecFlowProjectAPI.StepDefinitions
                 Assert.AreEqual("Hello, World", receivedMessageObject.Content, "El valor de 'content' no es el esperado.");
 
             }
+
+            Assert.AreEqual(expectedMessage, receivedMessage);
         }
 
+        
         [AfterScenario]
-        public void TearDown()
-        { 
-            if (_scenarioContext.ScenarioInfo.Tags.Contains("rabbitmq"))
+        public async Task FinalizarContenedores()
+        {
+            if (_scenarioContext.ScenarioInfo.Tags.Contains("pulsar"))
             {
-                _rabbitMqManager.StopContainer();
+                _PulsarContA?.CloseAsyncConsumer();
+                _PulsarContA?.CloseAsyncProducer();
+                _PulsarContA?.CloseAsyncPulsarContainerManager();
             }
         }
     }

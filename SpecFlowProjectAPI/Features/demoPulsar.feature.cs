@@ -20,22 +20,22 @@ namespace SpecFlowProjectAPI.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Enviar y recibir mensajes en RabbitMQ")]
-    public partial class EnviarYRecibirMensajesEnRabbitMQFeature
+    [NUnit.Framework.DescriptionAttribute("Enviar y recibir mensajes en Pulsar")]
+    public partial class EnviarYRecibirMensajesEnPulsarFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "demoRabbitMQ.feature"
+#line 1 "demoPulsar.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Enviar y recibir mensajes en RabbitMQ", null, ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Enviar y recibir mensajes en Pulsar", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,11 +75,11 @@ namespace SpecFlowProjectAPI.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Verificar que el mensaje Json se envía correctamente")]
-        [NUnit.Framework.CategoryAttribute("rabbitmq")]
+        [NUnit.Framework.CategoryAttribute("pulsar")]
         public void VerificarQueElMensajeJsonSeEnviaCorrectamente()
         {
             string[] tagsOfScenario = new string[] {
-                    "rabbitmq"};
+                    "pulsar"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verificar que el mensaje Json se envía correctamente", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 4
@@ -93,14 +93,15 @@ namespace SpecFlowProjectAPI.Features
             {
                 this.ScenarioStart();
 #line 5
-    testRunner.Given("un contenedor RabbitMQ está en funcionamiento", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("un contenedor Pulsar está en funcionamiento", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
-    testRunner.When("envío un mensaje \"{\"type\": \"simple\", \"content\": \"Hello, World\"}\" a la cola", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("envío un mensaje al producer \"{\"type\": \"simple\", \"content\": \"Hello, World\"}\" a la" +
+                        " cola", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
-    testRunner.Then("el mensaje \"{\"type\": \"simple\", \"content\": \"Hello, World\"}\" debería ser recibido c" +
-                        "orrectamente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("el mensaje recibido por el consumer \"{\"type\": \"simple\", \"content\": \"Hello, World\"" +
+                        "}\" debería ser recibido correctamente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -108,11 +109,11 @@ namespace SpecFlowProjectAPI.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Verificar que el mensaje Json + objeto se envía correctamente")]
-        [NUnit.Framework.CategoryAttribute("rabbitmq")]
+        [NUnit.Framework.CategoryAttribute("pulsar")]
         public void VerificarQueElMensajeJsonObjetoSeEnviaCorrectamente()
         {
             string[] tagsOfScenario = new string[] {
-                    "rabbitmq"};
+                    "pulsar"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verificar que el mensaje Json + objeto se envía correctamente", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 10
@@ -126,15 +127,15 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 11
-    testRunner.Given("un contenedor RabbitMQ está en funcionamiento", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("un contenedor Pulsar está en funcionamiento", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 12
-    testRunner.When("envío un mensaje \"{\"type\": \"complex\", \"content\": {\"text\": \"Hello\", \"number\": 123}" +
-                        "}\" a la cola", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("envío un mensaje al producer \"{\"type\": \"complex\", \"content\": {\"text\": \"Hello\", \"n" +
+                        "umber\": 123}}\" a la cola", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 13
-    testRunner.Then("el mensaje \"{\"type\": \"complex\", \"content\": {\"text\": \"Hello\", \"number\": 123}}\" deb" +
-                        "ería ser recibido correctamente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("el mensaje recibido por el consumer \"{\"type\": \"complex\", \"content\": {\"text\": \"Hel" +
+                        "lo\", \"number\": 123}}\" debería ser recibido correctamente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -142,11 +143,11 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Verificar que el mensaje Json + Array se envía correctamente")]
-        [NUnit.Framework.CategoryAttribute("rabbitmq")]
+        [NUnit.Framework.CategoryAttribute("pulsar")]
         public void VerificarQueElMensajeJsonArraySeEnviaCorrectamente()
         {
             string[] tagsOfScenario = new string[] {
-                    "rabbitmq"};
+                    "pulsar"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verificar que el mensaje Json + Array se envía correctamente", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 16
@@ -160,15 +161,15 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 17
-    testRunner.Given("un contenedor RabbitMQ está en funcionamiento", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("un contenedor Pulsar está en funcionamiento", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 18
-    testRunner.When("envío un mensaje \"{\"type\": \"list\", \"content\": [\"item1\", \"item2\", \"item3\"]}\" a la " +
-                        "cola", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("envío un mensaje al producer \"{\"type\": \"list\", \"content\": [\"item1\", \"item2\", \"ite" +
+                        "m3\"]}\" a la cola", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 19
-    testRunner.Then("el mensaje \"{\"type\": \"list\", \"content\": [\"item1\", \"item2\", \"item3\"]}\" debería ser" +
-                        " recibido correctamente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("el mensaje recibido por el consumer \"{\"type\": \"list\", \"content\": [\"item1\", \"item2" +
+                        "\", \"item3\"]}\" debería ser recibido correctamente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TechTalk.SpecFlow.Infrastructure;
+using Reqnroll.Infrastructure;
 
 namespace SpecFlowProjectAPI.StepDefinitions
 {
@@ -18,12 +18,10 @@ namespace SpecFlowProjectAPI.StepDefinitions
         HttpClient httpClient;
         HttpResponseMessage response;
         string responseBody;
-        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
 
-        public postDefinitions(ISpecFlowOutputHelper _specFlowOutputHelper)
+        public postDefinitions()
         {
             httpClient = new HttpClient();
-            this._specFlowOutputHelper = _specFlowOutputHelper;
         }
 
         [Given(@"the user sends a post request with url as ""([^""]*)""")]
@@ -40,7 +38,7 @@ namespace SpecFlowProjectAPI.StepDefinitions
             response = await httpClient.PostAsync(url, contentData);
 
             responseBody = await response.Content.ReadAsStringAsync();
-            _specFlowOutputHelper.WriteLine("post response is: " + responseBody);
+            Console.WriteLine("post response is: " + responseBody);
 
         }
 
@@ -57,7 +55,7 @@ namespace SpecFlowProjectAPI.StepDefinitions
             Assert.IsFalse(string.IsNullOrEmpty(token), "El campo 'token' es nulo o vacío.");
 
             // Opcional: Imprime el token en la salida de SpecFlow
-            _specFlowOutputHelper.WriteLine("Token recibido: " + token);
+            Console.WriteLine("Token recibido: " + token);
         }
     }
 }

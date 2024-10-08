@@ -3,7 +3,7 @@ using NUnit.Framework;
 using SpecFlowProjectAPI.Support;
 using System.Security.Policy;
 using System.Text;
-using TechTalk.SpecFlow.Infrastructure;
+using Reqnroll.Infrastructure;
 using static SpecFlowProjectAPI.Support.GetData;
 using static SpecFlowProjectAPI.Support.GetBookingData;
 
@@ -16,13 +16,11 @@ namespace SpecFlowProjectAPI.StepDefinitions
         HttpClient httpClient;
         HttpResponseMessage response;
         string responseBody;
-        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
         GetData desdata;
         GetBookingData desdataBooking;
-        public getDefinitions(ISpecFlowOutputHelper _specFlowOutputHelper)
+        public getDefinitions()
         {
             httpClient = new HttpClient();
-            this._specFlowOutputHelper = _specFlowOutputHelper;
         }
 
         [Given(@"thee user sends a get request with url as ""([^""]*)""")]
@@ -36,10 +34,10 @@ namespace SpecFlowProjectAPI.StepDefinitions
             response = await httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
             responseBody = await response.Content.ReadAsStringAsync();
-            _specFlowOutputHelper.WriteLine(responseBody);
+            Console.WriteLine(responseBody);
 
             desdataBooking = JsonConvert.DeserializeObject<GetBookingData>(responseBody);
-            _specFlowOutputHelper.WriteLine("After deserialization value is: " + desdataBooking.firstname.ToString());
+            Console.WriteLine("After deserialization value is: " + desdataBooking.firstname.ToString());
 
         }
 
@@ -49,10 +47,10 @@ namespace SpecFlowProjectAPI.StepDefinitions
             response = await httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
             responseBody = await response.Content.ReadAsStringAsync();
-            _specFlowOutputHelper.WriteLine(responseBody);
+            Console.WriteLine(responseBody);
 
             desdata = JsonConvert.DeserializeObject<GetData>(responseBody);
-            _specFlowOutputHelper.WriteLine("After deserialization value is: " + desdata.data.id.ToString());
+            Console.WriteLine("After deserialization value is: " + desdata.data.id.ToString());
 
         }
 

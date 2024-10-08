@@ -20,22 +20,22 @@ namespace SpecFlowProjectAPI.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("apiTest")]
-    public partial class ApiTestFeature
+    [NUnit.Framework.DescriptionAttribute("Validar la respuesta correcta en una API pública")]
+    public partial class ValidarLaRespuestaCorrectaEnUnaAPIPublicaFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "apiTest.feature"
+#line 1 "reqnrollTest.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual async System.Threading.Tasks.Task FeatureSetupAsync()
         {
             testRunner = global::Reqnroll.TestRunnerManager.GetTestRunnerForAssembly();
-            global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "apiTest", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+            global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Validar la respuesta correcta en una API pública", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
             await testRunner.OnFeatureStartAsync(featureInfo);
         }
         
@@ -75,16 +75,14 @@ namespace SpecFlowProjectAPI.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("POST request test")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
-        public async System.Threading.Tasks.Task POSTRequestTest()
+        [NUnit.Framework.DescriptionAttribute("Validar y extraer preguntas con \"correct_answer\" igual a \"True\"")]
+        public async System.Threading.Tasks.Task ValidarYExtraerPreguntasConCorrect_AnswerIgualATrue()
         {
-            string[] tagsOfScenario = new string[] {
-                    "mytag"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("POST request test", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 4
-this.ScenarioInitialize(scenarioInfo);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validar y extraer preguntas con \"correct_answer\" igual a \"True\"", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 3
+  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -93,26 +91,31 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
+#line 4
+    await testRunner.GivenAsync("el usuario envía una solicitud GET a \"https://opentdb.com/api.php?amount=10&categ" +
+                        "ory=9&difficulty=easy&type=boolean\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
 #line 5
- await testRunner.GivenAsync("the user sends a post request with url as \"https://restful-booker.herokuapp.com/a" +
-                        "uth\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+    await testRunner.ThenAsync("la respuesta debería contener al menos una \"correct_answer\" con valor \"True\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 6
- await testRunner.ThenAsync("user should get a succes response with 200s code", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+    await testRunner.AndAsync("mostrar las preguntas donde \"correct_answer\" es \"True\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("GET request test")]
-        public async System.Threading.Tasks.Task GETRequestTest()
+        [NUnit.Framework.DescriptionAttribute("Validar que todas las preguntas tienen 3 respuestas incorrectas y extraer la resp" +
+            "uesta correcta")]
+        public async System.Threading.Tasks.Task ValidarQueTodasLasPreguntasTienen3RespuestasIncorrectasYExtraerLaRespuestaCorrecta()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("GET request test", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 9
-this.ScenarioInitialize(scenarioInfo);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validar que todas las preguntas tienen 3 respuestas incorrectas y extraer la resp" +
+                    "uesta correcta", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 8
+  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -121,39 +124,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
+#line 9
+    await testRunner.GivenAsync("el usuario envía una solicitud GET a \"https://opentdb.com/api.php?amount=50&categ" +
+                        "ory=21&difficulty=medium&type=multiple\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
 #line 10
- await testRunner.GivenAsync("the user sends a get request with url as \"https://reqres.in/api/users/2\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+    await testRunner.ThenAsync("todas las preguntas deberían tener exactamente 3 respuestas incorrectas", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 11
- await testRunner.ThenAsync("user should get a succes response", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("GET request that fail")]
-        public async System.Threading.Tasks.Task GETRequestThatFail()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("GET request that fail", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 13
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 14
- await testRunner.GivenAsync("thee user sends a get request with url as \"https://restful-booker.herokuapp.com/b" +
-                        "ooking/2\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-#line 15
- await testRunner.ThenAsync("userr should get a succes response", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+    await testRunner.AndAsync("extraer y mostrar la \"correct_answer\" para la pregunta \"Which car manufacturer wo" +
+                        "n the 2017 24 Hours of Le Mans?\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

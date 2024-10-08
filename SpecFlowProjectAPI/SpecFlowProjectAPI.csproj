@@ -13,11 +13,13 @@
     <PackageReference Include="MySql.Data" Version="9.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
-    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
-    <PackageReference Include="SpecFlow.NUnit" Version="3.9.74" />
     <PackageReference Include="nunit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
     <PackageReference Include="FluentAssertions" Version="6.12.1" />
+    <PackageReference Include="&#xD;&#xA;					  " Version="2.1.0" />
+    <PackageReference Include="Reqnroll" Version="2.1.0" />
+    <PackageReference Include="Reqnroll.NUnit" Version="2.1.0" />
+    <PackageReference Include="Reqnroll.SpecFlowCompatibility" Version="2.1.0" />
     <PackageReference Include="Testcontainers" Version="3.10.0" />
     <PackageReference Include="Testcontainers.PostgreSql" Version="3.9.0" />
     <PackageReference Include="Testcontainers.Pulsar" Version="3.10.0" />

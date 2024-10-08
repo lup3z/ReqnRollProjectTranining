@@ -1,20 +1,21 @@
 ﻿using Newtonsoft.Json;
-using NUnit.Framework;
 using SpecFlowProjectAPI.Support;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework;
+[assembly: Parallelizable(ParallelScope.Fixtures)]
 
 namespace SpecFlowProjectAPI.StepDefinitions
 {
     [Binding]
-    [Parallelizable(ParallelScope.All)]
+    //[Parallelizable(ParallelScope.All)]
     public class ReqnRollStepDefinition
     {
         private readonly HttpClient _httpClient;
-        private static ReqnRollApi _responseData; // Variable estática para almacenar la respuesta
+        private ReqnRollApi _responseData; // Variable estática para almacenar la respuesta
 
 
         public ReqnRollStepDefinition()

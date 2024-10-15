@@ -11,7 +11,6 @@ using NUnit.Framework;
 namespace SpecFlowProjectAPI.StepDefinitions
 {
     [Binding]
-    //[Parallelizable(ParallelScope.All)]
     public class ReqnRollStepDefinition
     {
         private readonly HttpClient _httpClient;

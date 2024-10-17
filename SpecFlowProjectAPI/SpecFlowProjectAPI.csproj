@@ -27,9 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include=".github\workflows\" />
     <Folder Include="Drivers\" />
     <Folder Include="Features\parallel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".github\workflows\ci.yaml" />
   </ItemGroup>
 
   <ItemGroup>

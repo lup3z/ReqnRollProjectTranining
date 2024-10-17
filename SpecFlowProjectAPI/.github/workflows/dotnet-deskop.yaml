@@ -1,13 +1,13 @@
 ﻿name: CI - Ejecutar pruebas
 
-# Este flujo de trabajo se ejecutará en cada push a la rama 'master'
+# Este flujo de trabajo se ejecutará en cada push a la rama 'main'
 on:
   push:
     branches:
-      - master  # También puedes cambiarlo a otra rama, como 'develop'
+      - main  # También puedes cambiarlo a otra rama, como 'develop'
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   build:

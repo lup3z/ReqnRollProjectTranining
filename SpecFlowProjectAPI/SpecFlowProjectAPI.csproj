@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include=".gitignore" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotPulsar" Version="3.3.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
@@ -32,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".github\workflows\ci.yaml" />
+    <None Include=".github\workflows\dotnet-deskop.yaml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,10 +4,10 @@ name: CI - Ejecutar pruebas
 on:
   push:
     branches:
-      - main  # También puedes cambiarlo a otra rama, como 'develop'
+      - master  # También puedes cambiarlo a otra rama, como 'develop'
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build:

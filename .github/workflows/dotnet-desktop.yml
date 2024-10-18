@@ -1,4 +1,4 @@
-name: CI - Ejecutar pruebas
+name: CI - Pruebas Ejecutadas
 
 # Este flujo de trabajo se ejecutará en cada push a la rama 'main'
 on:

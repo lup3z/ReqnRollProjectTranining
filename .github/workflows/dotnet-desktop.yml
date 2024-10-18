@@ -32,11 +32,13 @@ jobs:
       - name: Build the solution
         run: dotnet build --configuration Release --no-restore
 
-      # Ejecutar los tests
+      # Ejecutar los tests y generar el reporte
       - name: Run tests and generate HTML report
         run: |
+          # Crear la carpeta para los resultados si no existe
+          mkdir -p ./TestResults
           # Ejecutar pruebas y generar el archivo .trx para el reporte
-          dotnet test --logger "trx;LogFileName=test-results.trx" --no-restore
+          dotnet test --logger "trx;LogFileName=./TestResults/test-results.trx" --no-restore
           # Instalar ReportGenerator globalmente
           dotnet tool install --global dotnet-reportgenerator-globaltool
           # Generar el reporte HTML a partir del archivo .trx
@@ -44,7 +46,7 @@ jobs:
 
       # Cargar el reporte como artefacto
       - name: Upload Test Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3  # Actualizado a la versión más reciente
         with:
           name: test-report
           path: ./TestResults/Report

@@ -3,7 +3,7 @@ name: CI - Test Status
 on:
   push:
     branches:
-      - master
+      - master  # Cambia a la rama que uses
   pull_request:
     branches:
       - master
@@ -13,27 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Clonar el código del repositorio
       - name: Check out repository code
         uses: actions/checkout@v3
 
+      # Configurar .NET SDK
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.x'
+          dotnet-version: '7.x' # O la versión que estés usando
 
+      # Restaurar dependencias
       - name: Restore dependencies
         run: dotnet restore
 
+      # Compilar el proyecto
       - name: Build the solution
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release
 
-      - name: Create TestResults directory
-        run: mkdir -p ./TestResults
-
+      # Ejecutar los tests
       - name: Run tests
-        run: dotnet test --no-restore --verbosity detailed --logger "trx;LogFileName=TestResults/test-results.trx"
+        run: dotnet test --logger "trx;LogFileName=TestResults/test-results.trx" --verbosity normal
 
-      - name: Check for test results
+      # Comprobar si se generó el archivo de resultados
+      - name: Check if test results file exists
         run: |
           if [ -f ./TestResults/test-results.trx ]; then
             echo "Test results file found."
@@ -41,9 +44,3 @@ jobs:
             echo "Test results file not found."
             exit 1
           fi
-
-      - name: Generate HTML report
-        run: |
-          mkdir -p ./TestResults/Report
-          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.3.11
-          reportgenerator -reports:./TestResults/test-results.trx -targetdir:./TestResults/Report -reporttypes:Html

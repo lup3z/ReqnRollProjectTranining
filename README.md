@@ -85,3 +85,44 @@ Tasks
         - Design and write the test cases for the following scenarios in Ghernkins format
             - Validate that all questions have 3 incorrect answers
             - Extract and print as evidence the "correct_answer": for  "question": "Which car manufacturer won the 2017 24 Hours of Le Mans?
+
+
+
+
+[![CI - Status de pruebas](https://github.com/lup3z/SpecFlowProjectAPI/actions/workflows/dotnet-desktop.yml/badge.svg?branch=master)](https://github.com/lup3z/SpecFlowProjectAPI/actions/workflows/dotnet-desktop.yml)
+
+## Proyect C# y Reqnroll
+
+### Assignment Task 1
+
+#### Pre-requisites:
+- Install moq (`dotnet add package Moq`)
+- Install JSON Reader (`dotnet add package Newtonsoft.Json`)
+
+#### Tasks:
+- Go to [API Docs](https://restful-booker.herokuapp.com/apidoc/index.html)
+- Create a test script that uses the Post request: `Auth - CreateToken` endpoint and validate the response
+- Create a test script that uses the Get request: `Booking - GetBookingIds` endpoint and validate the response body
+- Create a test script that uses Moq to mock the response (a fixed response different from the real one)
+- Execute the tests
+- Push the changes to the GitHub Repo
+
+---
+
+### Assignment Task 2
+
+#### Pre-requisites:
+- Install Test Container (`dotnet add package TestContainers`)
+- Install MySql (`dotnet add package MySql.Data`)
+
+#### Tasks:
+- Go to [Sauce Demo](https://www.saucedemo.com/)
+- Create a DB and store the credentials mentioned in Sauce Demo based on the following feature:
+
+  ```gherkin
+  Scenario: Database Container
+    Given I have a running MySQL Container
+    Then the database should be accessible
+    ```
+- Include this test in the HTML test report
+- Push the changes to the GitHub Repo

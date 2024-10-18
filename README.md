@@ -1,4 +1,4 @@
-Proyecto C# y SpecFlow
+Proyecto C# y Reqnroll
 
 Se realiza la siguiente tarea de automatizacion:
 
@@ -9,3 +9,5 @@ Create a test script that uses the Get request to Get Single user - Single user 
 - Create a test script that uses moq to mock the response (a fixed response different from the real one)
 Execute the tests
 Push the changes to the GitHub Repo
+
+[![CI - Status de pruebas](https://github.com/lup3z/SpecFlowProjectAPI/actions/workflows/dotnet-desktop.yml/badge.svg?branch=master)](https://github.com/lup3z/SpecFlowProjectAPI/actions/workflows/dotnet-desktop.yml)

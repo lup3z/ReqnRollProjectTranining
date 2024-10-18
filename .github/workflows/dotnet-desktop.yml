@@ -31,6 +31,10 @@ jobs:
       - name: Build the solution
         run: dotnet build --configuration Release
 
+      # Crear la carpeta de resultados
+      - name: Create TestResults directory
+        run: mkdir -p TestResults
+
       # Ejecutar los tests
       - name: Run tests
         run: dotnet test --logger "trx;LogFileName=TestResults/test-results.trx" --verbosity normal

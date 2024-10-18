@@ -27,8 +27,11 @@ jobs:
       - name: Build the solution
         run: dotnet build --configuration Release --no-restore
 
+      - name: Create TestResults directory
+        run: mkdir -p ./TestResults
+
       - name: Run tests
-        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test --no-restore --verbosity detailed --logger "trx;LogFileName=TestResults/test-results.trx"
 
       - name: Check for test results
         run: |

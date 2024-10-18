@@ -1,52 +1,46 @@
 name: CI - Test Status
 
-# Este flujo de trabajo se ejecutará en cada push a la rama 'main'
 on:
   push:
     branches:
-      - master  # También puedes cambiarlo a otra rama, como 'develop'
+      - master
   pull_request:
     branches:
       - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Elige el sistema operativo, puede ser ubuntu-latest o windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      # Clonar el código del repositorio
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      # Configurar .NET SDK
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.x' # O la versión que estés usando (por ejemplo, '6.x')
+          dotnet-version: '7.x'
 
-      # Restaurar dependencias
       - name: Restore dependencies
         run: dotnet restore
 
-      # Compilar el proyecto
       - name: Build the solution
         run: dotnet build --configuration Release --no-restore
 
-      # Ejecutar los tests y generar el reporte
-      - name: Run tests and generate HTML report
-        run: |
-          # Crear la carpeta para los resultados si no existe
-          mkdir -p ./TestResults
-          # Ejecutar pruebas y generar el archivo .trx para el reporte
-          dotnet test --logger "trx;LogFileName=./TestResults/test-results.trx" --no-restore
-          # Instalar ReportGenerator globalmente
-          dotnet tool install --global dotnet-reportgenerator-globaltool
-          # Generar el reporte HTML a partir del archivo .trx
-          reportgenerator -reports:./TestResults/test-results.trx -targetdir:./TestResults/Report -reporttypes:Html
+      - name: Run tests
+        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=test-results.trx"
 
-      # Cargar el reporte como artefacto
-      - name: Upload Test Report
-        uses: actions/upload-artifact@v3  # Actualizado a la versión más reciente
-        with:
-          name: test-report
-          path: ./TestResults/Report
+      - name: Check for test results
+        run: |
+          if [ -f ./TestResults/test-results.trx ]; then
+            echo "Test results file found."
+          else
+            echo "Test results file not found."
+            exit 1
+          fi
+
+      - name: Generate HTML report
+        run: |
+          mkdir -p ./TestResults/Report
+          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.3.11
+          reportgenerator -reports:./TestResults/test-results.trx -targetdir:./TestResults/Report -reporttypes:Html

@@ -31,19 +31,20 @@ jobs:
       - name: Build the solution
         run: dotnet build --configuration Release --no-restore
 
-      - name: Create Test Results directory
-        run: mkdir -p ${{ github.workspace }}/TestResults
-
-# Crear el directorio para resultados
-      - name: Create Test Results directory
-        run: mkdir -p ${{ github.workspace }}/TestResults
+# Verificar si el archivo de resultados se generó
+      - name: List test results directory
+        run: ls -la TestResults
 
       - name: Create Test Results directory
         run: mkdir -p ${{ github.workspace }}/TestResults
+
+# Verificar si el archivo de resultados se generó
+      - name: List test results directory
+        run: ls -la TestResults
 
       # Ejecutar los tests y generar el reporte en una carpeta específica
       - name: Run tests
-        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=TestResults/test-results.trx"
+        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=${{ github.workspace }}/TestResults/test-results.trx"
 
       # Verificar si el archivo de resultados se generó
       - name: List test results directory

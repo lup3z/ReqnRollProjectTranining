@@ -33,14 +33,14 @@ jobs:
 
 # Verificar si el archivo de resultados se generó
       - name: List test results directory
-        run: ls -la ${{ github.workspace }}/TestResults
+        run: ls -la TestResults
 
       - name: Create Test Results directory
         run: mkdir -p ${{ github.workspace }}/TestResults
 
 # Verificar si el archivo de resultados se generó
       - name: List test results directory
-        run: ls -la ${{ github.workspace }}/TestResults
+        run: ls -la TestResults
 
       # Ejecutar los tests y generar el reporte en una carpeta específica
       - name: Run tests
@@ -48,7 +48,7 @@ jobs:
 
       # Verificar si el archivo de resultados se generó
       - name: List test results directory
-        run: ls -la ${{ github.workspace }}/TestResults
+        run: ls -la TestResults
 
       # Subir el artefacto de los resultados del test
       - name: Upload test results

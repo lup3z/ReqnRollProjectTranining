@@ -42,5 +42,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Report
-          path: test-results.trx
+          path: test-results
           retention-days: 2

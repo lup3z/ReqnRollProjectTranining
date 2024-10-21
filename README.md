@@ -128,4 +128,3 @@
       - Extract and print as evidence the `"correct_answer"` for the question: `"Which car manufacturer won the 2017 24 Hours of Le Mans?"`.
 
 ---
-

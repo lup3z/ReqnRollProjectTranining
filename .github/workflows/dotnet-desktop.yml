@@ -53,6 +53,7 @@ jobs:
 
       # Hacer commit del reporte al branch gh-pages
       - name: Push report to gh-pages
+        if: always()
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"

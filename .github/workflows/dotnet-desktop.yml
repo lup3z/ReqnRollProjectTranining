@@ -34,17 +34,9 @@ jobs:
       - name: Create Test Results directory
         run: mkdir -p ${{ github.workspace }}/TestResults
 
-# Verificar si el archivo de resultados se generó
-      - name: List test results directory
-        run: ls -la ${{ github.workspace }}/TestResults
-
       # Ejecutar los tests y generar el reporte en una carpeta específica
       - name: Run tests
-        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=${{ github.workspace }}/TestResults/test-results.trx"
-
-      # Verificar si el archivo de resultados se generó
-      - name: List test results directory
-        run: ls -la ${{ github.workspace }}/TestResults
+        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=${{ github.workspace }}/TestResults/test-results.trx" --collect "XPlat Code Coverage"
 
       # Instalar ReportGenerator para convertir el archivo .trx en un reporte HTML
       - name: Install ReportGenerator
@@ -57,7 +49,6 @@ jobs:
             # Generar el reporte HTML a partir del archivo .trx
       - name: Generate HTML report
         run: reportgenerator "-reports:${{ github.workspace }}/TestResults/test-results.trx" "-targetdir:${{ github.workspace }}/TestResults/html" "-reporttypes:Html"
-
 
       # Subir el artefacto de los resultados del test
       - name: Upload test results

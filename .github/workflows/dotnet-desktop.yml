@@ -28,13 +28,16 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
+      - name: Create Test Results directory
+        run: mkdir -p TestResults
+
       # Compilar el proyecto
       - name: Build the solution
         run: dotnet build --configuration Release --no-restore
 
       # Ejecutar los tests
       - name: Run tests
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=TestResults/test-results.trx"
 
       # Subir el artefacto de los resultados del test
       - name: Upload test results
@@ -42,5 +45,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Report
-          path: test-results
+          path: TestResults/test-results.trx
           retention-days: 2

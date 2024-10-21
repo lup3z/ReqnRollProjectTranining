@@ -36,10 +36,11 @@ jobs:
       - name: Run tests
         run: dotnet test --no-restore --verbosity normal
 
-      # Reporte
-  uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: Report
-        path: test-results
-        retention-days: 2
+      # Subir el artefacto de los resultados del test
+      - name: Upload test results
+        if: always() # Esto se asegura de que se ejecuta aunque las pruebas fallen
+        uses: actions/upload-artifact@v3
+        with:
+          name: Report
+          path: test-results.trx
+          retention-days: 2

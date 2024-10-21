@@ -52,7 +52,7 @@ jobs:
 
             # Generar el reporte HTML a partir del archivo .trx
       - name: Generate HTML report
-        run: reportgenerator "-reports:-reports:${{ github.workspace }}/TestResults/test-results.trx" "-targetdir:${{ github.workspace }}TestResults/html" "-reporttypes:Html"
+        run: reportgenerator "-reports:${{ github.workspace }}/TestResults/test-results.trx" "-targetdir:${{ github.workspace }}/TestResults/html" "-reporttypes:Html"
 
 
       # Subir el artefacto de los resultados del test

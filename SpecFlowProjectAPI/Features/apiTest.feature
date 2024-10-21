@@ -12,4 +12,4 @@ Scenario: GET request test
 
 #Scenario: GET request that fail
 #	Given thee user sends a get request with url as "https://restful-booker.herokuapp.com/booking/2"
-#	Then userr should get a succes response
+#	Then userr should get a succes response 

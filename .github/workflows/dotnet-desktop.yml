@@ -31,10 +31,6 @@ jobs:
       - name: Build the solution
         run: dotnet build --configuration Release --no-restore
 
-# Verificar si el archivo de resultados se generó
-      - name: List test results directory
-        run: ls -la TestResults
-
       - name: Create Test Results directory
         run: mkdir -p ${{ github.workspace }}/TestResults
 

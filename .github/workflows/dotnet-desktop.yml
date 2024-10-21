@@ -1,17 +1,16 @@
 name: CI - Test Status
 
-# Este flujo de trabajo se ejecutará en cada push a la rama 'main'
 on:
   push:
     branches:
-      - master  # También puedes cambiarlo a otra rama, como 'develop'
+      - master
   pull_request:
     branches:
       - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Elige el sistema operativo, puede ser ubuntu-latest o windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       # Clonar el código del repositorio
@@ -22,26 +21,27 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.x' # O la versión que estés usando (por ejemplo, '6.x')
+          dotnet-version: '7.x'
 
       # Restaurar dependencias
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Create Test Results directory
-        run: mkdir -p TestResults
-
       # Compilar el proyecto
       - name: Build the solution
         run: dotnet build --configuration Release --no-restore
 
-      # Ejecutar los tests
+      # Ejecutar los tests y generar el reporte en una carpeta específica
       - name: Run tests
         run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=TestResults/test-results.trx"
 
+      # Verificar si el archivo de resultados se generó
+      - name: List test results directory
+        run: ls -la TestResults
+
       # Subir el artefacto de los resultados del test
       - name: Upload test results
-        if: always() # Esto se asegura de que se ejecuta aunque las pruebas fallen
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: Report

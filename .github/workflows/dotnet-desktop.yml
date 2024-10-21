@@ -34,21 +34,9 @@ jobs:
       - name: Create Test Results directory
         run: mkdir -p ${{ github.workspace }}/TestResults
 
-      # Ejecutar los tests y generar el reporte en una carpeta específica
+      # Ejecutar los tests y generar el reporte en formato HTML
       - name: Run tests
-        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=${{ github.workspace }}/TestResults/test-results.trx"
-
-      # Listar archivos en el directorio TestResults
-      - name: List TestResults directory
-        run: ls -R ${{ github.workspace }}/TestResults
-
-      # Instalar ReportGenerator para convertir el archivo .trx en un reporte HTML
-      - name: Install ReportGenerator
-        run: dotnet tool install -g dotnet-reportgenerator-globaltool
-
-      # Generar el reporte HTML a partir del archivo .trx
-      - name: Generate HTML report
-        run: reportgenerator "-reports:${{ github.workspace }}/TestResults/test-results.trx" "-targetdir:${{ github.workspace }}/TestResults/html" "-reporttypes:Html"
+        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=${{ github.workspace }}/TestResults/test-results.trx" --logger "html;LogFileName=${{ github.workspace }}/TestResults/test-results.html"
 
       # Subir el artefacto de los resultados del test
       - name: Upload test results
@@ -56,5 +44,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Report
-          path: ${{ github.workspace }}/TestResults/html
+          path: ${{ github.workspace }}/TestResults/test-results.html
           retention-days: 2

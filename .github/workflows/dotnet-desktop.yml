@@ -50,6 +50,10 @@ jobs:
       - name: Install ReportGenerator
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
+            # Generar el reporte HTML desde la cobertura
+      - name: Generate HTML coverage report
+        run: reportgenerator "-reports:${{ github.workspace }}/TestResults/coverage/coverage.cobertura.xml" "-targetdir:${{ github.workspace }}/TestResults/html" "-reporttypes:Html"
+
             # Generar el reporte HTML a partir del archivo .trx
       - name: Generate HTML report
         run: reportgenerator "-reports:${{ github.workspace }}/TestResults/test-results.trx" "-targetdir:${{ github.workspace }}/TestResults/html" "-reporttypes:Html"

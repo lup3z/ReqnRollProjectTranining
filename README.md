@@ -1,6 +1,10 @@
 
 [![CI - Status de pruebas](https://github.com/lup3z/SpecFlowProjectAPI/actions/workflows/dotnet-desktop.yml/badge.svg?branch=master)](https://github.com/lup3z/SpecFlowProjectAPI/actions/workflows/dotnet-desktop.yml) 
 
+## Access to the Test Report
+
+You can access the test report [here](https://lup3z.github.io/ReqnRollProjectTranining/html/test-results.html).
+
 ## Proyect C# y Reqnroll
 
 ### Assignment Task 1

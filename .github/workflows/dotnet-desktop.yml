@@ -31,6 +31,7 @@ jobs:
       - name: Build the solution
         run: dotnet build --configuration Release --no-restore
 
+      # Crear el directorio para los resultados de los tests
       - name: Create Test Results directory
         run: mkdir -p ${{ github.workspace }}/TestResults
 
@@ -46,3 +47,17 @@ jobs:
           name: Report
           path: ${{ github.workspace }}/TestResults/test-results.html
           retention-days: 2
+
+      # Hacer commit del reporte al branch gh-pages
+      - name: Push report to gh-pages
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout -B gh-pages
+          mkdir -p html
+          mv ${{ github.workspace }}/TestResults/test-results.html html/
+          git add html
+          git commit -m "Update test results report"
+          git push -f origin gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

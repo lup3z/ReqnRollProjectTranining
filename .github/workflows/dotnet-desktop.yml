@@ -35,3 +35,11 @@ jobs:
       # Ejecutar los tests
       - name: Run tests
         run: dotnet test --no-restore --verbosity normal
+
+      # Reporte
+  uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: Report
+        path: test-results
+        retention-days: 2
